@@ -10,10 +10,17 @@ using UnityEngine.SceneManagement;
 public class MenuUIHandler : MonoBehaviour
 {
    public TMP_InputField newPlayerName;
+   public TextMeshProUGUI bestScoreText;
+
+   private void Start()
+   {
+      GameManager.Instance.LoadBestScore();
+      bestScoreText.text = $"Best Score : {GameManager.Instance.newPlayerName} : {GameManager.Instance.newBestPoint}";
+   }
 
    public void StartGame()
    {
-      GameManager.Instance.playerName = newPlayerName.text;
+      GameManager.Instance.newPlayerName = newPlayerName.text;
       SceneManager.LoadScene(1);
    }
 
