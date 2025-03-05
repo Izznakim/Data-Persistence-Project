@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor.Overlays;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour
    public string playerName;
    public int newBestPoint;
    public int bestPoint;
+   public List<(string, int)> highScore;
 
    private void Awake()
    {
@@ -27,6 +30,18 @@ public class GameManager : MonoBehaviour
    {
       public string playerName;
       public int bestPoint;
+
+      public Player(string playerName = "", int bestPoint = 0)
+      {
+         this.playerName = playerName;
+         this.bestPoint = bestPoint;
+      }
+   }
+
+   [System.Serializable]
+   class HighScore
+   {
+      public List<Player> highScore = new List<Player>();
    }
 
    public void SaveBestScore()
@@ -56,5 +71,41 @@ public class GameManager : MonoBehaviour
    public void ResetBestScore()
    {
       File.Delete(Application.persistentDataPath + "/savefile.json");
+      File.Delete(Application.persistentDataPath + "/highscore.json");
+   }
+
+   public void SaveHighScore(string playerName, int point)
+   {
+      List<Player> players = LoadRawHighScore();
+      players.Add(new Player(playerName, point));
+
+      players = players.OrderByDescending(p => p.bestPoint).ToList();
+
+      if (players.Count > 10)
+      {
+         players.RemoveAt(players.Count - 1);
+      }
+
+      HighScore data = new HighScore { highScore = players };
+      string json = JsonUtility.ToJson(data, true);
+      File.WriteAllText(Application.persistentDataPath + "/highscore.json", json);
+   }
+
+   private List<Player> LoadRawHighScore()
+   {
+      string path = Application.persistentDataPath + "/highscore.json";
+      if (File.Exists(path))
+      {
+         string json = File.ReadAllText(path);
+         HighScore data = JsonUtility.FromJson<HighScore>(json);
+         return data.highScore;
+      }
+      return new List<Player>();
+   }
+
+   public List<(string playerName, int point)> LoadHighScore()
+   {
+      List<Player> players = LoadRawHighScore();
+      return players.Select(player => (player.playerName, player.bestPoint)).ToList();
    }
 }
