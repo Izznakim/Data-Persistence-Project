@@ -19,7 +19,6 @@ public class MainManager : MonoBehaviour
 
    private bool m_GameOver = false;
 
-
    // Start is called before the first frame update
    void Start()
    {
@@ -38,7 +37,7 @@ public class MainManager : MonoBehaviour
          }
       }
       GameManager.Instance.LoadBestScore();
-      ScoreText1.text = $"Best Score : {GameManager.Instance.newPlayerName} : {GameManager.Instance.newBestPoint}";
+      ScoreText1.text = $"Best Score : {GameManager.Instance.playerName} : {GameManager.Instance.bestPoint}";
    }
 
    private void Update()
@@ -75,7 +74,7 @@ public class MainManager : MonoBehaviour
    {
       m_GameOver = true;
       GameOverText.SetActive(true);
-      if (m_Points > GameManager.Instance.newBestPoint)
+      if (m_Points > GameManager.Instance.bestPoint)
       {
          ScoreText1.text = $"Best Score : {GameManager.Instance.newPlayerName} : {m_Points}";
          GameManager.Instance.newBestPoint = m_Points;

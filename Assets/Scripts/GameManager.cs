@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
    public static GameManager Instance;
 
    public string newPlayerName;
+   public string playerName;
    public int newBestPoint;
+   public int bestPoint;
 
    private void Awake()
    {
@@ -46,8 +48,13 @@ public class GameManager : MonoBehaviour
          string json = File.ReadAllText(path);
          Player data = JsonUtility.FromJson<Player>(json);
 
-         newPlayerName = data.playerName;
-         newBestPoint = data.bestPoint;
+         playerName = data.playerName;
+         bestPoint = data.bestPoint;
       }
+   }
+
+   public void ResetBestScore()
+   {
+      File.Delete(Application.persistentDataPath + "/savefile.json");
    }
 }

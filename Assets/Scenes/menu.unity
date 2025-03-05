@@ -828,7 +828,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028e4787d9921df4c9606186fe96896e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
+  newPlayerName: 
+  newBestPoint: 0
 --- !u!4 &469930398
 Transform:
   m_ObjectHideFlags: 0
@@ -1277,6 +1278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newPlayerName: {fileID: 476981567}
+  bestScoreText: {fileID: 435943228}
 --- !u!1 &1312602893
 GameObject:
   m_ObjectHideFlags: 0

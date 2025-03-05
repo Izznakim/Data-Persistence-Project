@@ -15,7 +15,8 @@ public class MenuUIHandler : MonoBehaviour
    private void Start()
    {
       GameManager.Instance.LoadBestScore();
-      bestScoreText.text = $"Best Score : {GameManager.Instance.newPlayerName} : {GameManager.Instance.newBestPoint}";
+      bestScoreText.text = $"Best Score : {GameManager.Instance.playerName} : {GameManager.Instance.bestPoint}";
+      /*GameManager.Instance.ResetBestScore();*/
    }
 
    public void StartGame()
