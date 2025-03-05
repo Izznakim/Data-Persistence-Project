@@ -84,4 +84,9 @@ public class MainManager : MonoBehaviour
       }
       GameManager.Instance.SaveHighScore(GameManager.Instance.newPlayerName, m_Points);
    }
+
+   public void BackToMenuScene()
+   {
+      SceneManager.LoadScene(0);
+   }
 }

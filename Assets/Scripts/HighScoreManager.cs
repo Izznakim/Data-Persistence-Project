@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HighScoreManager : MonoBehaviour
 {
@@ -15,5 +16,16 @@ public class HighScoreManager : MonoBehaviour
          highScoreText.text += $"{rank}. {item.name}: {item.score}\n";
          rank++;
       }
+   }
+
+   public void ResetHighScore()
+   {
+      GameManager.Instance.ResetBestScore();
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+   }
+
+   public void BackToMenuScene()
+   {
+      SceneManager.LoadScene(0);
    }
 }
